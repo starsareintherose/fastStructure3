@@ -3,7 +3,7 @@ cimport numpy as np
 cimport vars.allelefreq as af
 cimport vars.admixprop as ap
 from scipy.special import digamma, gammaln, polygamma
-import vars.utils
+import vars.utils as utils
 
 ctypedef np.uint8_t uint8_t
 
