@@ -3,7 +3,7 @@ cimport numpy as np
 cimport vars.allelefreq as af
 from scipy.special import digamma
 from cpython cimport bool
-import utils
+import vars.utils
 
 ctypedef np.uint8_t uint8_t
 
