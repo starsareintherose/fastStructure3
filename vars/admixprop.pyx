@@ -1,6 +1,6 @@
 import numpy as np
 cimport numpy as np
-cimport allelefreq as af
+cimport vars.allelefreq as af
 from scipy.special import digamma
 from cpython cimport bool
 import utils
