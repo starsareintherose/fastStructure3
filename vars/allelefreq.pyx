@@ -1,7 +1,7 @@
 
 import numpy as np
 cimport numpy as np
-cimport admixprop as ap
+cimport vars.admixprop as ap
 from cpython cimport bool
 from functools import reduce
 from scipy.special import digamma, gammaln, polygamma
