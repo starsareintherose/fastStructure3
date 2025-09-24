@@ -1,35 +1,19 @@
-
-from distutils.core import setup
+from setuptools import setup, Extension
 from Cython.Build import cythonize
-from distutils.extension import Extension
-from Cython.Distutils import build_ext
 import numpy
-import sys
 
-# setup utility functions
-ext_modules = [Extension("utils", ["utils.pyx"])]
-
-setup(
-    name = 'utility functions',
-    cmdclass = {'build_ext': build_ext},
-    include_dirs=[numpy.get_include(), '.'],
-    ext_modules = ext_modules
-)
-
-# setup variable updates 
-ext_modules = [Extension("admixprop", sources=["admixprop.pyx", "C_admixprop.c"]),
-               Extension("allelefreq", sources=["allelefreq.pyx", "C_allelefreq.c"],
-                libraries=["gsl","gslcblas"],
-                extra_compile_args=["-O3"]),
-               Extension("marglikehood", sources=["marglikehood.pyx", "C_marglikehood.c"])]
-ext_modules = cythonize(ext_modules)
+ext_modules = [
+    Extension("vars.admixprop", ["admixprop.pyx", "C_admixprop.c"], include_dirs=[numpy.get_include(), '.']),
+    Extension("vars.allelefreq", ["allelefreq.pyx", "C_allelefreq.c"], 
+              libraries=["gsl", "gslcblas"], extra_compile_args=["-O3"], include_dirs=[numpy.get_include(), '.']),
+    Extension("vars.marglikehood", ["marglikehood.pyx", "C_marglikehood.c"], include_dirs=[numpy.get_include(), '.']),
+    Extension("vars.utils", ["utils.pyx"], include_dirs=[numpy.get_include(), '.']),
+]
 
 setup(
-    name = 'variables',
-    author = 'Anil Raj',
-    version = '1.0',
-    author_email = 'rajanil@stanford.edu',
-    cmdclass = {'build_ext': build_ext},
+    name="variables",
+    version="1.0",
+    ext_modules=cythonize(ext_modules),
+    packages=["vars"],
     include_dirs=[numpy.get_include(), '.'],
-    ext_modules = ext_modules
 )
