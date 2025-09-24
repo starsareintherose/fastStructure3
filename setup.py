@@ -1,36 +1,19 @@
-
-from distutils.core import setup
-from distutils.extension import Extension
-from Cython.Distutils import build_ext
+from setuptools import setup, Extension
+from Cython.Build import cythonize
 import numpy
-import sys
 
-# setup bed parser
-ext_modules = [Extension("parse_bed", ["parse_bed.pyx"])]
-
-setup(
-    name = 'parse_bed',
-    cmdclass = {'build_ext': build_ext},
-    include_dirs=[numpy.get_include(), '.'],
-    ext_modules = ext_modules
-)
-
-# setup structure format parser
-ext_modules = [Extension("parse_str", ["parse_str.pyx"])]
+ext_modules = [
+    Extension("fastStructure", ["fastStructure.pyx"], include_dirs=[numpy.get_include(), '.', 'vars/']),
+    Extension("parse_bed", ["parse_bed.pyx"], include_dirs=[numpy.get_include(), '.']),
+    Extension("parse_str", ["parse_str.pyx"], include_dirs=[numpy.get_include(), '.']),
+]
 
 setup(
-    name = 'parse_str',
-    cmdclass = {'build_ext': build_ext},
-    include_dirs=[numpy.get_include(), '.'],
-    ext_modules = ext_modules
-)
-
-# setup fastStructure
-ext_modules = [Extension("fastStructure", ["fastStructure.pyx"])]
-
-setup(
-    name = 'fastStructure',
-    cmdclass = {'build_ext': build_ext},
+    name="fastStructure3",
+    version="0.0.1",
+    ext_modules=cythonize(ext_modules),
+    py_modules=["structure", "chooseK", "distruct"],  # 如有这些文件
     include_dirs=[numpy.get_include(), '.', 'vars/'],
-    ext_modules = ext_modules
+    license="MIT",
+    description="Python3 compatible update of Anil Raj's fastStructure"
 )
