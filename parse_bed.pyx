@@ -21,7 +21,7 @@ def load(file):
     Nindiv = i+1
 
     # Number of bytes to read in at a time
-    Nbytes = Nindiv/4+(Nindiv%4>0)*1
+    Nbytes = Nindiv // 4 + (Nindiv % 4 > 0) * 1 #Nbytes = Nindiv/4+(Nindiv%4>0)*1
 
     # number of SNPs
     handle = open(file+'.bim','r')
@@ -44,7 +44,7 @@ def load(file):
     checkC = bin(struct.unpack('<B', line)[0])[2:].zfill(8)[::-1]
 
     if checkA!="00110110" or checkB!="11011000":
-        print "This is not a valid bed file"
+        print ("This is not a valid bed file")
         handle.close()
         sys.exit(2)
 
