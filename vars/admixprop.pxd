@@ -1,6 +1,6 @@
 import numpy as np
 cimport numpy as np
-cimport allelefreq as af
+cimport vars.allelefreq as af
 
 cdef class AdmixProp:
 
